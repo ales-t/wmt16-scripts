@@ -4,13 +4,15 @@ This directory contains some sample files and configuration scripts for training
 INSTRUCTIONS
 ------------
 
-all scripts contain variables that you will need to set to run the scripts.
-For processing the sample data, only paths to different toolkits need to be set.
-For processing new data, more changes will be necessary.
+Set all required variables in the global settings file:
 
-As a first step, download the training data:
+  ./settings.sh
 
-  ./download_files.sh
+As a first step, put your data in the following directory:
+
+  ./data
+
+By default, the names of your files should be train.$SRC, train.$TGT, dev.$SRC etc.
 
 Then, preprocess the training, dev and test data:
 

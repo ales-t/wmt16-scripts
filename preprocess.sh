@@ -12,7 +12,7 @@
 # especially if they differ in their alphabet
 
 mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-. $mydir/header.sh
+. $mydir/settings.sh
 
 # number of merge operations. Network vocabulary should be slightly larger (to include characters),
 # or smaller if the operations are learned on the joint vocabulary

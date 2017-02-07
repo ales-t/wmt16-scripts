@@ -1,16 +1,16 @@
 #!/bin/sh
 
 mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-. $mydir/header.sh
+. $mydir/settings.sh
 
 #model prefix
 prefix=model/model.npz
 
-dev=data/newsdev2016.bpe.ro
-ref=data/newsdev2016.tok.en
+dev=data/$DEV.bpe.$SRC
+ref=data/$DEV.tok.$TGT
 
 # decode
-THEANO_FLAGS=mode=FAST_RUN,floatX=float32,device=$device,on_unused_input=warn python $NEMATUS/nematus/translate.py \
+THEANO_FLAGS=mode=FAST_RUN,floatX=float32,device=$DEVICE,on_unused_input=warn python $NEMATUS/nematus/translate.py \
      -m $prefix.dev.npz \
      -i $dev \
      -o $dev.output.dev \
