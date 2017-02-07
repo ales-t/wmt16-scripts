@@ -5,10 +5,11 @@ import sys
 VOCAB_SIZE = 90000
 SRC = os.environ['SRC']
 TGT = os.environ['TGT']
+DEV = os.environ['DEV']
+TRAIN = os.environ['TRAIN']
 DATA_DIR = "data/"
 
 from nematus.nmt import train
-
 
 if __name__ == '__main__':
     validerr = train(saveto='model/model.npz',
@@ -24,9 +25,9 @@ if __name__ == '__main__':
                     maxlen=50,
                     batch_size=80,
                     valid_batch_size=80,
-                    datasets=[DATA_DIR + '/corpus.bpe.' + SRC, DATA_DIR + '/corpus.bpe.' + TGT],
-                    valid_datasets=[DATA_DIR + '/newsdev2016.bpe.' + SRC, DATA_DIR + '/newsdev2016.bpe.' + TGT],
-                    dictionaries=[DATA_DIR + '/corpus.bpe.' + SRC + '.json',DATA_DIR + '/corpus.bpe.' + TGT + '.json'],
+                    datasets=[DATA_DIR + '/' + TRAIN + '.bpe.' + SRC, DATA_DIR + '/' + TRAIN + '.bpe.' + TGT],
+                    valid_datasets=[DATA_DIR + '/' + DEV + '.bpe.' + SRC, DATA_DIR + '/' + DEV + '.bpe.' + TGT],
+                    dictionaries=[DATA_DIR + '/' + TRAIN + '.bpe.' + SRC + '.json', DATA_DIR + '/' + TRAIN + '.bpe.' + TGT + '.json' ],
                     validFreq=10000,
                     dispFreq=1000,
                     saveFreq=30000,
