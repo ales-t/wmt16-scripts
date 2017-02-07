@@ -19,49 +19,49 @@ mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 bpe_operations=89500
 
 # tokenize
-for prefix in corpus newsdev2016
+for prefix in $TRAIN $DEV
  do
    cat data/$prefix.$SRC | \
-   $mosesdecoder/scripts/tokenizer/normalize-punctuation.perl -l $SRC | \
-   $mosesdecoder/scripts/tokenizer/tokenizer.perl -a -l $SRC > data/$prefix.tok.$SRC
+   $MOSESDECODER/scripts/tokenizer/normalize-punctuation.perl -l $SRC | \
+   $MOSESDECODER/scripts/tokenizer/tokenizer.perl -a -l $SRC > data/$prefix.tok.$SRC
 
-   cat data/$prefix.$TRG | \
-   $mosesdecoder/scripts/tokenizer/normalize-punctuation.perl -l $TRG | \
-   $mosesdecoder/scripts/tokenizer/tokenizer.perl -a -l $TRG > data/$prefix.tok.$TRG
+   cat data/$prefix.$TGT | \
+   $MOSESDECODER/scripts/tokenizer/normalize-punctuation.perl -l $TGT | \
+   $MOSESDECODER/scripts/tokenizer/tokenizer.perl -a -l $TGT > data/$prefix.tok.$TGT
 
  done
 
 # clean empty and long sentences, and sentences with high source-target ratio (training corpus only)
-$mosesdecoder/scripts/training/clean-corpus-n.perl data/corpus.tok $SRC $TRG data/corpus.tok.clean 1 80
+$MOSESDECODER/scripts/training/clean-corpus-n.perl data/train.tok $SRC $TGT data/train.tok.clean 1 80
 
 # train truecaser
-$mosesdecoder/scripts/recaser/train-truecaser.perl -corpus data/corpus.tok.clean.$SRC -model model/truecase-model.$SRC
-$mosesdecoder/scripts/recaser/train-truecaser.perl -corpus data/corpus.tok.clean.$TRG -model model/truecase-model.$TRG
+$MOSESDECODER/scripts/recaser/train-truecaser.perl -corpus data/train.tok.clean.$SRC -model model/truecase-model.$SRC
+$MOSESDECODER/scripts/recaser/train-truecaser.perl -corpus data/train.tok.clean.$TGT -model model/truecase-model.$TGT
 
 # apply truecaser (cleaned training corpus)
-for prefix in corpus
+for prefix in $TRAIN
  do
-  $mosesdecoder/scripts/recaser/truecase.perl -model model/truecase-model.$SRC < data/$prefix.tok.clean.$SRC > data/$prefix.tc.$SRC
-  $mosesdecoder/scripts/recaser/truecase.perl -model model/truecase-model.$TRG < data/$prefix.tok.clean.$TRG > data/$prefix.tc.$TRG
+  $MOSESDECODER/scripts/recaser/truecase.perl -model model/truecase-model.$SRC < data/$prefix.tok.clean.$SRC > data/$prefix.tc.$SRC
+  $MOSESDECODER/scripts/recaser/truecase.perl -model model/truecase-model.$TGT < data/$prefix.tok.clean.$TGT > data/$prefix.tc.$TGT
  done
 
 # apply truecaser (dev/test files)
-for prefix in newsdev2016
+for prefix in $DEV
  do
-  $mosesdecoder/scripts/recaser/truecase.perl -model model/truecase-model.$SRC < data/$prefix.tok.$SRC > data/$prefix.tc.$SRC
-  $mosesdecoder/scripts/recaser/truecase.perl -model model/truecase-model.$TRG < data/$prefix.tok.$TRG > data/$prefix.tc.$TRG
+  $MOSESDECODER/scripts/recaser/truecase.perl -model model/truecase-model.$SRC < data/$prefix.tok.$SRC > data/$prefix.tc.$SRC
+  $MOSESDECODER/scripts/recaser/truecase.perl -model model/truecase-model.$TGT < data/$prefix.tok.$TGT > data/$prefix.tc.$TGT
  done
 
 # train BPE
-cat data/corpus.tc.$SRC data/corpus.tc.$TRG | $subword_nmt/learn_bpe.py -s $bpe_operations > model/$SRC$TRG.bpe
+cat data/$TRAIN.tc.$SRC data/$TRAIN.tc.$TGT | $SUBWORD_NMT/learn_bpe.py -s $bpe_operations > model/$SRC$TGT.bpe
 
 # apply BPE
 
-for prefix in corpus newsdev2016
+for prefix in $TRAIN $DEV
  do
-  $subword_nmt/apply_bpe.py -c model/$SRC$TRG.bpe < data/$prefix.tc.$SRC > data/$prefix.bpe.$SRC
-  $subword_nmt/apply_bpe.py -c model/$SRC$TRG.bpe < data/$prefix.tc.$TRG > data/$prefix.bpe.$TRG
+  $SUBWORD_NMT/apply_bpe.py -c model/$SRC$TGT.bpe < data/$prefix.tc.$SRC > data/$prefix.bpe.$SRC
+  $SUBWORD_NMT/apply_bpe.py -c model/$SRC$TGT.bpe < data/$prefix.tc.$TGT > data/$prefix.bpe.$TGT
  done
 
 # build network dictionary
-$nematus/data/build_dictionary.py data/corpus.bpe.$SRC data/corpus.bpe.$TRG
+$NEMATUS/data/build_dictionary.py data/$TRAIN.bpe.$SRC data/$TRAIN.bpe.$TGT
