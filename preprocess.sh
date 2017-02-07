@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # this sample script preprocesses a sample corpus, including tokenization,
 # truecasing, and subword segmentation. 

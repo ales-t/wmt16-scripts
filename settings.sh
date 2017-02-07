@@ -15,10 +15,10 @@ SUBWORD_NMT=/path/to/subword-nmt
 NEMATUS=/path/to/nematus
 
 # suffix of source language files
-SRC=ro
+SRC=en
 
 # suffix of target language files
-TGT=en
+TGT=cs
 
 # name of the training corpus prefix
 TRAIN=train
