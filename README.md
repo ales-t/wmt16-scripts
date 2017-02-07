@@ -1,6 +1,5 @@
 This directory contains some sample files and configuration scripts for training a simple neural MT model
 
-
 INSTRUCTIONS
 ------------
 
