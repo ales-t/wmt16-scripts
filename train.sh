@@ -1,3 +1,6 @@
+mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $mydir/header.sh
+
 # theano device, in case you do not want to compute on gpu, change it to cpu
 device=gpu
 

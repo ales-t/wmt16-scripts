@@ -1,13 +1,7 @@
 #!/bin/sh
 
-# path to nematus ( https://www.github.com/rsennrich/nematus )
-nematus=/path/to/nematus
-
-# path to moses decoder: https://github.com/moses-smt/mosesdecoder
-mosesdecoder=/path/to/mosesdecoder
-
-# theano device, in case you do not want to compute on gpu, change it to cpu
-device=gpu
+mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $mydir/header.sh
 
 #model prefix
 prefix=model/model.npz

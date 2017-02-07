@@ -1,10 +1,7 @@
 #/bin/sh
 
-# path to moses decoder: https://github.com/moses-smt/mosesdecoder
-mosesdecoder=/path/to/mosesdecoder
-
-# suffix of target language files
-lng=en
+mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $mydir/header.sh
 
 sed 's/\@\@ //g' | \
 $mosesdecoder/scripts/recaser/detruecase.perl

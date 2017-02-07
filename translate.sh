@@ -1,10 +1,7 @@
 #!/bin/sh
 
-# theano device, in case you do not want to compute on gpu, change it to cpu
-device=gpu
-
-# path to nematus ( https://www.github.com/rsennrich/nematus )
-nematus=/path/to/nematus
+mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $mydir/header.sh
 
 THEANO_FLAGS=mode=FAST_RUN,floatX=float32,device=$device,on_unused_input=warn python $nematus/nematus/translate.py \
      -m model/model.npz \

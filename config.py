@@ -3,8 +3,8 @@ import os
 import sys
 
 VOCAB_SIZE = 90000
-SRC = "ro"
-TGT = "en"
+SRC = os.environ['SRC']
+TGT = os.environ['TGT']
 DATA_DIR = "data/"
 
 from nematus.nmt import train
