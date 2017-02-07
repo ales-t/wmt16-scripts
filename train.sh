@@ -8,4 +8,4 @@ export TGT
 export DEV
 export TRAIN
 
-THEANO_FLAGS=mode=FAST_RUN,floatX=float32,device=$DEVICE,on_unused_input=warn python config.py
+THEANO_FLAGS=mode=FAST_RUN,floatX=float32,device=$DEVICE,on_unused_input=warn python -u config.py
