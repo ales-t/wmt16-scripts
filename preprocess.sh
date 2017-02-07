@@ -23,8 +23,6 @@ for prefix in corpus newsdev2016
  do
    cat data/$prefix.$SRC | \
    $mosesdecoder/scripts/tokenizer/normalize-punctuation.perl -l $SRC | \
-   ../preprocess/normalise-romanian.py | \
-   ../preprocess/remove-diacritics.py | \
    $mosesdecoder/scripts/tokenizer/tokenizer.perl -a -l $SRC > data/$prefix.tok.$SRC
 
    cat data/$prefix.$TRG | \
