@@ -24,7 +24,7 @@ THEANO_FLAGS=mode=FAST_RUN,floatX=float32,device=$DEVICE,on_unused_input=warn py
 BEST=`cat ${prefix}_best_bleu || echo 0`
 $MOSESDECODER/scripts/generic/multi-bleu.perl $ref < $dev.output.postprocessed.dev >> ${prefix}_bleu_scores
 BLEU=`$MOSESDECODER/scripts/generic/multi-bleu.perl $ref < $dev.output.postprocessed.dev | cut -f 3 -d ' ' | cut -f 1 -d ','`
-BETTER=`echo "$BLEU > $BEST" | bc`
+BETTER=`perl -e "print $BLEU > $BEST || 0"`
 
 echo "BLEU = $BLEU"
 
