@@ -19,6 +19,8 @@ mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 bpe_operations=$(( $VOCAB_SIZE - 500 ))
 echo "will do this many BPE splits: $bpe_operations" >&2
 
+mkdir -p model
+
 # tokenize
 for prefix in $TRAIN $DEV
  do
