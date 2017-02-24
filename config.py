@@ -2,7 +2,7 @@ import numpy
 import os
 import sys
 
-VOCAB_SIZE = os.environ['VOCAB_SIZE']
+VOCAB_SIZE = int(os.environ['VOCAB_SIZE'])
 SRC = os.environ['SRC']
 TGT = os.environ['TGT']
 DEV = os.environ['DEV']
