@@ -7,7 +7,7 @@ mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 prefix=model/model.npz
 
 dev=data/$DEV.bpe.$SRC
-ref=data/$DEV.tok.$TGT
+ref=data/$DEV.tc.$TGT # is this correct?
 
 # decode
 THEANO_FLAGS=mode=FAST_RUN,floatX=float32,device=$DEVICE,on_unused_input=warn python $NEMATUS/nematus/translate.py \
