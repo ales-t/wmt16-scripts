@@ -28,3 +28,42 @@ DEV=dev
 
 # name of the test corpus prefix
 TEST=test
+
+# vocabulary size (number of BPE splits is automatically derived from this)
+VOCAB_SIZE=90000
+
+# embedding size
+DIM_WORD=500
+
+# size of the hidden layer
+DIM=1024
+
+# (initial) learning rate
+LRATE=0.0001
+
+# which optimization algorithm
+OPTIMIZER=adam
+
+# maximum sentence length
+MAXLEN=50
+
+# training batch size
+BATCH_SIZE=80
+
+# batch size for validation
+VALID_BATCH_SIZE=80
+
+# validation frequency
+VALID_FREQ=10000
+
+# how often to save the model
+SAVE_FREQ=30000
+
+# use dropout? (set to 'yes' to enable)
+DROPOUT=no
+
+# dropout settings at different stages
+DROPOUT_EMBEDDING=0.2 # dropout for input embeddings 
+DROPOUT_HIDDEN=0.2 # dropout for hidden layers 
+DROPOUT_SOURCE=0.1 # dropout source words 
+DROPOUT_TARGET=0.1 # dropout target words 

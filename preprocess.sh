@@ -16,7 +16,8 @@ mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # number of merge operations. Network vocabulary should be slightly larger (to include characters),
 # or smaller if the operations are learned on the joint vocabulary
-bpe_operations=89500
+bpe_operations=$(( $VOCAB_SIZE - 500 ))
+echo "will do this many BPE splits: $bpe_operations" >&2
 
 # tokenize
 for prefix in $TRAIN $DEV
