@@ -32,7 +32,7 @@ if __name__ == '__main__':
                     validFreq=int(os.environ['VALID_FREQ']),
                     dispFreq=1000,
                     saveFreq=int(os.environ['SAVE_FREQ']),
-                    sampleFreq=10000,
+                    sampleFreq=int(os.environ['SAMPLE_FREQ']),
                     use_dropout=USE_DROPOUT,
                     dropout_embedding=float(os.environ['DROPOUT_EMBEDDING']),
                     dropout_hidden=float(os.environ['DROPOUT_HIDDEN']),

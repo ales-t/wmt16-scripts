@@ -56,6 +56,9 @@ VALID_BATCH_SIZE=80
 # validation frequency
 VALID_FREQ=10000
 
+# validation frequency
+SAMPLE_FREQ=5000
+
 # how often to save the model
 SAVE_FREQ=30000
 
