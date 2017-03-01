@@ -22,7 +22,7 @@ echo "will do this many BPE splits: $bpe_operations" >&2
 mkdir -p model
 
 # tokenize
-for prefix in $TRAIN $DEV
+for prefix in $TRAIN $DEV $TEST
  do
    cat data/$prefix.$SRC | \
    $MOSESDECODER/scripts/tokenizer/normalize-punctuation.perl -l $SRC | \
@@ -49,7 +49,7 @@ for prefix in $TRAIN
  done
 
 # apply truecaser (dev/test files)
-for prefix in $DEV
+for prefix in $DEV $TEST
  do
   $MOSESDECODER/scripts/recaser/truecase.perl -model model/truecase-model.$SRC < data/$prefix.tok.$SRC > data/$prefix.tc.$SRC
   $MOSESDECODER/scripts/recaser/truecase.perl -model model/truecase-model.$TGT < data/$prefix.tok.$TGT > data/$prefix.tc.$TGT
@@ -60,7 +60,7 @@ cat data/$TRAIN.tc.$SRC data/$TRAIN.tc.$TGT | $SUBWORD_NMT/learn_bpe.py -s $bpe_
 
 # apply BPE
 
-for prefix in $TRAIN $DEV
+for prefix in $TRAIN $DEV $TEST
  do
   $SUBWORD_NMT/apply_bpe.py -c model/$SRC$TGT.bpe < data/$prefix.tc.$SRC > data/$prefix.bpe.$SRC
   $SUBWORD_NMT/apply_bpe.py -c model/$SRC$TGT.bpe < data/$prefix.tc.$TGT > data/$prefix.bpe.$TGT
